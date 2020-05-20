@@ -145,6 +145,7 @@ footer {
     letter-spacing: 3.4px;
     text-align: left;
     color: #4a4a4a;
+    margin-bottom: 10px;
 }
 
 #venues {
@@ -184,7 +185,7 @@ footer {
 
 #button {
     width: 140px;
-    height: 46px;
+    height: 53px;
     border-radius: 4px;
     background-color: #27b7c1;
     font-family: Source Sans Pro;
@@ -194,6 +195,7 @@ footer {
     letter-spacing: 0.5px;
     text-align: center;
     color: #ffffff;
+    cursor: pointer;
 }
 
 @media (max-width: 900px) {

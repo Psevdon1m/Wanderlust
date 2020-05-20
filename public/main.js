@@ -35,7 +35,7 @@ let yyyy = today.getFullYear();
 
 today = `${yyyy}${mm}${dd}`;
 
-// Add AJAX functions here:
+//  AJAX functions:
 const getVenues = async () => {
   const city = $input.val();
   const urlToFetch = `${url}${city}&limit=10&client_id=${clientId}&client_secret=${clientSecret}&v=${today}`;
@@ -111,7 +111,7 @@ const renderVenues = (venues) => {
   let numArr = createArrayOfNumebrs(1, venues.length - 1);
 
   $venueDivs.forEach(($venue) => {
-    // Add your code here:
+    
     let randomIndex = getRandomNumber(0, numArr.length - 1);
     let randomNumber = numArr[randomIndex];
 
@@ -127,6 +127,7 @@ const renderVenues = (venues) => {
         venueImgSrc,
         photosUrl
       );
+      
       $venue.append(venueContent);
     });
   });
@@ -134,24 +135,40 @@ const renderVenues = (venues) => {
 };
 
 const renderForecast = (day) => {
-  // Add your code here:
+  
 
   let weatherContent = createWeatherHTML(day);
   $weatherDiv.append(weatherContent);
 };
 
+function removeElement(){
+  let toRemove = document.getElementById('destination');
+  toRemove.parentNode.removeChild(toRemove);
+  console.log(toRemove.parentNode)
+}
+
+
+let counter = 0;
+
 const executeSearch = () => {
-  $venueDivs.forEach((venue) => venue.empty());
-  $weatherDiv.empty();
-  $destination.empty();
-  $container.css("visibility", "visible");
-  getVenues().then((venues) => {
-    return renderVenues(venues);
-  });
-  getForecast().then((forecast) => {
-    return renderForecast(forecast);
-  });
-  return false;
+
+    $venueDivs.forEach((venue) => venue.empty());
+    // $weatherDiv.empty();
+    // $destination.empty();
+    $container.css("visibility", "visible");
+    
+    getVenues().then((venues) => {
+      $destination.empty();
+      return renderVenues(venues);
+    });
+    getForecast().then((forecast) => {
+      $weatherDiv.empty();
+      return renderForecast(forecast);
+    });
+    
+    return false;
+    
 };
+
 
 $submit.click(executeSearch);

@@ -1,15 +1,17 @@
 const createVenueHTML = (name, location, iconSource, photosUrl) => {
-  return `<h2>${name}</h2>
+
+  
+    return `<h2 class="title">${name}</h2>
     <img class="venueimage" src="${iconSource}"/>
     <h3>Address:</h3>
     <p>${location.address}</p>
     <p>${location.city}</p>
     <p>${location.country}</p>
-    <img class = "photo" src="${photosUrl}"/>`;
+    <img class = "photo" src="${photosUrl}"/>`
+
 };
 
 const createWeatherHTML = (currentDay) => {
-  console.log(currentDay);
   return `<h2>${weekDays[new Date().getDay()]}</h2>
           <h2>Temperature: ${kelvinToCelsius(currentDay.main.temp)}&deg;C</h2>
       <h2>Feels like: ${kelvinToCelsius(currentDay.main.feels_like)}&deg;C</h2>
