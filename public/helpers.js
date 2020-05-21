@@ -3,7 +3,7 @@ let counter = 0;
 const createVenueHTML = (name, location, iconSource, photosUrl) => {
   
   if(!photosUrl && counter === 3 ){
-    alert(`limit RICCEHD`)
+    alert(`Forsquare API limit has been reached, please try again tomorrow!`)
     counter = 0;
     return;
   }
