@@ -95,7 +95,7 @@ footer {
 .photo {
 
     position: relative;
-    display: block;
+    /* display: block; */
     width: 275px;
     height: 300px;
     margin: 0 auto;
@@ -196,6 +196,20 @@ footer {
     text-align: center;
     color: #ffffff;
     cursor: pointer;
+}
+
+.img-block{
+    height: 240px;
+    width: 300px;
+    overflow: hidden;
+    margin-top: 5px;
+
+}
+
+.info-block {
+    height: 230px;
+    width:100%;
+    margin-bottom: 10px;
 }
 
 @media (max-width: 900px) {

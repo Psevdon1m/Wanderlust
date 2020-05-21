@@ -48,11 +48,12 @@ const getVenues = async () => {
       const venues = jsonResponse.response.groups[0].items.map(
         (item) => item.venue
       );
-
+      
       return venues;
     }
   } catch (error) {
-    console.log(error);
+    alert(`Forsquare API limit has reached, please try again tomorrow`);
+    return;
   }
 };
 
