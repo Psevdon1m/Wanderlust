@@ -9,6 +9,7 @@ const venueId = "49eeaf08f964a52078681fe3";
 // OpenWeather Info
 const openWeatherKey = "87a69c216920ff38f884c4ef0aad5d86";
 const weatherUrl = "https://api.openweathermap.org/data/2.5/weather";
+// let counter = 0;
 
 // Page Elements
 const $input = $("#city");
@@ -43,6 +44,7 @@ const getVenues = async () => {
   try {
     const response = await fetch(urlToFetch);
     if (response.ok) {
+      console.log(response)
       const jsonResponse = await response.json();
 
       const venues = jsonResponse.response.groups[0].items.map(
@@ -50,10 +52,11 @@ const getVenues = async () => {
       );
       
       return venues;
+    }else {
+      throw new Error("Api limit is reached");
     }
   } catch (error) {
-    alert(`Forsquare API limit has reached, please try again tomorrow`);
-    return;
+    alert(error)
   }
 };
 
@@ -73,22 +76,30 @@ const getForecast = async () => {
 
 const getPhotos = async (venueId) => {
   const url2ToFetch = `https://api.foursquare.com/v2/venues/${venueId}/photos?limit=1&client_id=${clientId}&client_secret=${clientSecret}&v=${today}`;
+  
 
   try {
+    
     const response = await fetch(url2ToFetch);
-
-    if (response.ok) {
+    
+    
       const jsonResponse = await response.json();
-
-      const rawPhotos =
+      if(response.ok){
+        
+        
+        const rawPhotos =
         jsonResponse.response.photos.items[0].prefix +
         "width320" +
         jsonResponse.response.photos.items[0].suffix;
-
+        
       return rawPhotos;
-    }
+      
+      }
+       
+      
+  
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
 };
 
@@ -109,7 +120,8 @@ function createArrayOfNumebrs(start, end) {
 }
 
 const renderVenues = (venues) => {
-  let numArr = createArrayOfNumebrs(1, venues.length - 1);
+  
+    let numArr = createArrayOfNumebrs(1, venues.length - 1);
 
   $venueDivs.forEach(($venue) => {
     
@@ -120,19 +132,32 @@ const renderVenues = (venues) => {
     numArr.splice(randomIndex, 1);
     const venueIcon = venue.categories[0].icon;
     const venueImgSrc = `${venueIcon.prefix}bg_64${venueIcon.suffix}`;
+    
 
-    let photo = getPhotos(venue.id).then((photosUrl) => {
-      let venueContent = createVenueHTML(
-        venue.name,
-        venue.location,
-        venueImgSrc,
-        photosUrl
-      );
+    
+      let photo = getPhotos(venue.id).then((photosUrl) => {
+        
+        let venueContent = createVenueHTML(
+          venue.name,
+          venue.location,
+          venueImgSrc,
+          photosUrl
+        );
+        
+        
+        $venue.append(venueContent);
+        
+        
+      });
+
       
-      $venue.append(venueContent);
-    });
+
+    
   });
   $destination.append(`<h2>${venues[0].location.city}</h2>`);
+  
+
+  
 };
 
 const renderForecast = (day) => {
@@ -149,7 +174,7 @@ function removeElement(){
 }
 
 
-let counter = 0;
+
 
 const executeSearch = () => {
 
@@ -159,8 +184,10 @@ const executeSearch = () => {
     $container.css("visibility", "visible");
     
     getVenues().then((venues) => {
+      
       $destination.empty();
       return renderVenues(venues);
+      
     });
     getForecast().then((forecast) => {
       $weatherDiv.empty();

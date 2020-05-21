@@ -1,6 +1,13 @@
-const createVenueHTML = (name, location, iconSource, photosUrl) => {
 
+let counter = 0;
+const createVenueHTML = (name, location, iconSource, photosUrl) => {
   
+  if(!photosUrl && counter === 3 ){
+    alert(`limit RICCEHD`)
+    counter = 0;
+    return;
+  }
+  counter++;
     return `
     <div class="info-block">
     <h2 class="title">${name}</h2>
